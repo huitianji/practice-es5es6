@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试1</title>
+    <style type="text/css">
+        body {
+            width: 900px;
+            min-height: 500px;
+            margin: 0px auto;
+            border: 1px solid #cfcfcf;
+        }
+        p span{
+            font-size: 14px;;
+            color:red;
+        }
+        .sydcar-msg{
+            display: none;
+        }
+    </style>
+</head>
+<body class="mainbox">
+<p>
+    姓名：
+    <input type="text" class="sydcar-name sydcar-validate" name="name" placeholder="姓名">
+    <span class="sydcar-msg">错误</span>
+</p>
+<p>
+    年龄：
+    <input type="text" class="sydcar-num" name="age" placeholder="年龄">
+    <span class="sydcar-msg">错误</span>
+</p>
+<p>
+    tel：
+    <input type="text" class="sydcar-tel" name="tel" placeholder="tel">
+    <span class="sydcar-msg">错误</span>
+</p>
+<p>
+    职业：
+    <select name="type" class="sydcar-validate">
+        <option value="">请选择</option>
+        <option value="it">it</option>
+        <option value="MBN">MBN</option>
+    </select>
+    <span class="sydcar-msg">错误</span>
+</p>
+<div style="margin-left: 50px;">
+    <a href="####" class="btn">提交</a>
+</div>
+<script src="https://static.souyidai.com/wap/js/zepto.min.js"></script>
+<script>
+    var sydcar = {
+        "RegExp" : {
+            "fullname" : /^[\u4E00-\u9FA5]{2,5}(?:[•·][\u4E00-\u9FA5]{2,5})*$/,
+            "num" : /^\d+$/,
+            "tel" :/^(1[34578]\d{9})$/
+        },
+        "flag" : false
+    };
+    /**
+     *nameValFun
+     */
+    function nameValFun (mainObj) {
+        return Array.prototype.slice.call(mainObj.find(".sydcar-name")).every(function (item) {
+            sydcar.curThis = $(item);
+            return sydcar.RegExp.fullname.test($(item).val());
+        });
+    };
+    /**
+     *tel
+     */
+    function telValFun (mainObj) {
+        return Array.prototype.slice.call(mainObj.find(".sydcar-tel")).every(function (item) {
+            sydcar.curThis = $(item);
+            return sydcar.RegExp.num.test($(item).val());
+        });
+    };
+
+    /**
+     *num
+     */
+    function numValFun (mainObj) {
+        return Array.prototype.slice.call(mainObj.find(".sydcar-num")).every(function (item) {
+            sydcar.curThis = $(item);
+            return sydcar.RegExp.num.test($(item).val());
+        });
+    };
+    /*
+     *Validate
+     * */
+    function validateValFun (mainObj) {
+        return Array.prototype.slice.call(mainObj.find(".sydcar-validate")).every(function (item) {
+            sydcar.curThis = $(item);
+            return $(item).val() != "";
+        });
+    };
+    /**
+     *
+     * @param msgObj  => err / true
+     */
+    function msgFun (msgObj, status) {
+        if (status == "err") {
+            msgObj.siblings("span.sydcar-msg").show();
+
+        } else if (status == "true") {
+            msgObj.siblings("span.sydcar-msg").hide();
+        }
+
+    };
+    /*单个校验*/
+    $(".sydcar-name").on("blur", function () {
+        if (!sydcar.RegExp.fullname.test($(this).val())) {
+            msgFun ($(this), "err");
+        }else {
+            msgFun ($(this), "true");
+        }
+    });
+    $(".sydcar-num").on("blur", function () {
+        if (!sydcar.RegExp.num.test($(this).val())) {
+            msgFun ($(this), "err");
+        }else {
+            msgFun ($(this), "true");
+        }
+    });
+    $(".sydcar-validate").on("change", function () {
+        if (!($(this).val())) {
+            msgFun ($(this), "err");
+        }else {
+            msgFun ($(this), "true");
+        }
+    });
+    /**
+     *
+     * @param mainObj
+     */
+    function checkSaveFun (mainObj) {
+
+        if (!nameValFun (mainObj)) {
+            msgFun (sydcar.curThis, "err");
+            sydcar.flag = false;
+            return;
+        };
+        if (!numValFun (mainObj)) {
+            msgFun (sydcar.curThis, "err");
+            sydcar.flag = false;
+            return;
+        };
+        if (!validateValFun (mainObj)) {
+            msgFun (sydcar.curThis, "err");
+            sydcar.flag = false;
+            return;
+        };
+        sydcar.flag = true;
+
+    };
+    $(".btn").on("click", function () {
+        checkSaveFun ($(".mainbox"));
+        if (sydcar.flag) {
+            console.log("通过---");
+        }
+    });
+
+</script>
+</body>
+</html>
