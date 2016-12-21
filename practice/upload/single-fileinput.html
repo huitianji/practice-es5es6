@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单个上传测试</title>
+    <script src="https://static.souyidai.com/wap/js/zepto.min.js"></script>
+    <style type="text/css">
+        body {
+            width: 900px;
+            min-height: 500px;
+            margin: 0px auto;
+            border: 1px solid #cfcfcf;
+        }
+        p span{
+            font-size: 14px;;
+            color:red;
+        }
+        .sydcar-msg{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<!--<form action="single-fileinput.html" enctype="multipart/form-data">-->
+    <div id="mainbox">
+        <input type="file" name="upload" value="upload-1" id="file">
+    </div>
+    <br>
+    <input type="submit" value="button" id="btn">
+    <!--</form>-->
+<script>
+$(function () {
+    var obj = {};
+    function jsonFun () {
+        $("#mainbox").find("input").each(function () {
+            obj[$(this).attr("name")] = $(this).val();
+        });
+    };
+    $("#file").on("change", function () {
+        console.log(this.files[0]);
+        obj["filename"] = this.files[0].name;
+    });
+    $("#btn").on("click", function () {
+        jsonFun();
+        console.log(obj);
+        console.log($("#mainbox").files);
+    });
+});
+</script>
+</body>
+</html>
