@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        body{
+            width: 800px;
+            margin: 0px auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bank-box">
+    <p>请选择支付方式：</p>
+    <table class="bank-table" id="bankbox">
+        <tbody>
+        <tr>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/icbc.gif"></td>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/bc.gif"></td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/cb.gif"></td>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/cmb.gif"></td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/bi.gif"></td>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/eb.gif"></td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/ecb.gif"></td>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/gfb.gif"></td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/pfb.gif"></td>
+            <td><input type="radio" name="bank_name"><img height="40" src="images/psb.gif"></td>
+        </tr>
+        </tbody>
+    </table>
+    <button id="obtn">确定</button>
+</div>
+<script language="javascript" src="https://static.souyidai.com/www/js/jquery1.10.2.min.js"></script>
+
+<script>
+
+$(function () {
+
+    //IE6-IE8
+    if (typeof Array.prototype.some != "function") {
+        Array.prototype.some = function (fn, context) {
+            var passed = false;
+            if (typeof fn === "function") {
+                for (var k = 0, length = this.length; k < length; k++) {
+                    if (passed === true) break;
+                    passed = !!fn.call(context, this[k], k, this);
+                }
+            }
+            return passed;
+        };
+    };
+    //
+    function radioValFun (mainObj) {
+        return Array.prototype.slice.call(mainObj.find("input[type='radio']")).some(function (item) {
+            return $(item).is(':checked');
+        });
+    };
+
+
+    $("#obtn").on("click", function () {
+
+        if (radioValFun ($("#bankbox"))) {
+
+            var r = confirm("确认要提交吗？");
+
+            if (r) {
+                console.log("0---提交成功");
+            }
+
+        }else {
+            alert("请选择银行")
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
