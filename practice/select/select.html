@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script language="javascript" src="jquery1.10.2.min.js"></script>
+</head>
+<body>
+<select id="select" name="set">
+    <option>请选择</option>
+    <option>制造业</option>
+    <option>IT</option>
+    <option>政府机构</option>
+    <option>媒体、广告</option>
+
+    <option>零售</option>
+    <option>批发</option>
+    <option>教育培训</option>
+    <option>公共事业</option>
+
+    <option>交通运输业</option>
+    <option>房产</option>
+    <option>政府机构</option>
+    <option>媒体、广告</option>
+</select>
+<select id="select-change">
+    <option>请选择</option>
+</select>
+
+<script>
+//    $("#select").change(function(){
+//        //console.log($(this).val())
+//        //console.log($(this).get(0).selectedIndex);
+//        //console.log($(this).find("option:selected").html())
+//        //console.log($(this).selectedIndex());
+//    });
+    //测试添加
+//    $("#btn").on("click",function(){
+//        $("#select-change")
+//    });
+//    $("#btn").on("click",function(){
+//        console.log($("select[name='set']").val())
+//    });
+////json 数组也是数组
+//var jsonstr="[{'name':'a','value':1},{'name':'b','value':2}]";
+//var jsonarray = eval('('+jsonstr+')');
+//console.log(jsonarray)
+//var arr  =
+//{
+//    "name" : "aaaa",
+//    "value" : "bbb"
+//}
+//console.log(jsonarray.push(arr))
+//console.log(jsonarray)
+</script>
+<hr>
+<style type="text/css">
+   .odiv input{ display: block}
+</style>
+<div class="odiv">
+    <!--<div id="top">-->
+        <!--<input type="text" name="name" value="name">-->
+        <!--<input type="text" name="password" value="password">-->
+        <!--<input type="text" name="rel" value="rel">-->
+        <!--<textarea name="textarea">textarea</textarea>-->
+    <!--</div>-->
+
+    <!--<select name="set" id="set">-->
+        <!--<option>请选择</option>-->
+        <!--<option>电脑</option>-->
+        <!--<option>饼干</option>-->
+    <!--</select>-->
+    <!--<select name="set">-->
+        <!--<option>请选择</option>-->
+        <!--<option>电脑11</option>-->
+    <!--</select>-->
+    <!--<div class="newt">-->
+        <!--<input type="text" data="cs" name="tel" value="2">-->
+        <!--<input type="text" name="tel-p" value="tel-p">-->
+        <!--<input type="text" name="tel-p2" value="tel-p2">-->
+        <!--<input type="text" data-type="tel2" value="3">-->
+        <!--<input type="text" data-type="tel3" value="4">-->
+    <!--</div>-->
+    <div class="newt" style="display: block">
+        <input type="text" name="ttttel" value="ttttel">
+        <input type="text" name="mmmm" data="cs" value="mmmm">
+        <select name="selected">
+            <option>请选择</option>
+            <option>111</option>
+            <option>2222</option>
+        </select>
+    </div>
+    <!--<div class="newt" style="display: none">-->
+        <!--<div>kong</div>-->
+    <!--</div>-->
+    <button id="btn">点击添加</button>
+</div>
+<script>
+    var $odiv = $(".odiv");
+    $("#set").on("change",function(){
+        var index = $(this).get(0).selectedIndex;
+        for(var i= 0,len = $(".newt").length;i<len;i++){
+            $(".newt").eq(i).hide()
+        }
+        if($(this).val() == "请选择"){
+            $(".newt").eq(0).show();
+//            $(".newt").eq(1).find("input").val("")
+//            $(".newt").eq(1).find("select option").attr("selected",false)
+        }else if($(this).val() == "电脑"){
+            $(".newt").eq(1).show();
+//            $(".newt").eq(0).find("input").val("")
+        }else{
+            $(".newt").eq(2).show();
+        }
+    })
+
+
+    $("#btn").on("click",function(){
+        var tel =$(".newt").find("input[name=tel]").val();
+        var tel2 = $(".newt").find("input[data-type=tel2]").val();
+        var tel3 = $(".newt").find("input[data-type=tel3]").val();
+        tel = tel + "-"+tel2+" "+tel3;
+        //$(".newt").find("input[name=tel]").val(tel);
+        var data = {};
+        $(".newt").find("input,select").each(function(){
+            data[$(this).attr("name")] = $(this).val();
+        });
+        console.log(data)
+//        $(".odiv input").each(function(){
+//            data[$(this).attr("name")] = $(this).val();
+//        })
+//        $(".odiv textarea").each(function(){
+//            data[$(this).attr("name")] = $(this).val();
+//        });
+//        $(".odiv select").each(function(){
+//            data[$(this).attr("name")] = $(this).val();
+//        });
+//        $(".odiv input,.odiv select,.odiv textarea").each(function(){
+//            if($(this).attr("name") == undefined){
+//                return;
+//            }
+//            data[$(this).attr("name")] = $(this).val();
+//        });
+//        $("#top").find("input,textarea").each(function(){
+//            if($(this).attr("name") == undefined){
+//                return;
+//            }
+//            data[$(this).attr("name")] = $(this).val();
+//        });
+//        var newt = $(".newt");
+//        for(var i= 0,len = newt.length;i<len;i++){
+//            if(newt.eq(i).css("display")=="block"){
+//                var a = newt.eq(i).find("input[data=cs]").val();
+//                newt.eq(i).find("input,select").each(function(){
+//                    if($(this).attr("name") == undefined){
+//                        return;
+//                    }
+//                    data[$(this).attr("name")] = $(this).val();
+//                });
+//            }
+//        }
+//        $(".newt input").each(function(){
+//            if($(this).attr("name") == undefined){
+//                return;
+//            }
+//            data[$(this).attr("name")] = $(this).val();
+//        });
+        //console.log(tel)
+        //data["tel"] =tel;
+      // console.log(data)
+        //console.log($(".newt").find("input").name);
+    });
+</script>
+<hr>
+<select id="selected">
+    <!--<option>请选择</option>-->
+    <option selected="selected">ok</option>
+    <option >false</option>
+</select>
+<div id="bottom" style="border:1px solid red;">
+    <div style="display: block;">okokokok</div>
+    <div style="display: none">false.false,false,false;</div>
+</div>
+
+<button id="button">button</button>
+<script>
+//    var $selected = $("#selected");
+//    $selected.on("change",function(){
+//        var $option = $selected.find("option");
+//        var index = $(this).get(0).selectedIndex;
+//        for(var i = 0,len = $option.length;i<len;i++){
+//            $option.eq(i).attr("selected",false)
+//        }
+////        console.log(index)
+//       console.log($(this).find("option").eq(index).attr("selected",true))
+//    });
+$("#selected").change(function(){
+    var index = $(this).get(0).selectedIndex;
+    for(var i= 0,len = $("#bottom>div").length;i<len;i++){
+        $("#bottom>div").eq(i).hide();
+    }
+    if($(this).val() == "ok"){
+        $("#bottom>div").eq(0).show();
+    }else{
+        $("#bottom>div").eq(1).show();
+    }
+});
+$(function(){
+    $("#button").on("click",function(){
+        console.log($("#selected").find("option:selected").val());
+    });
+    var $defaultV = $("#selected").find("option:selected").text();
+    for(var i= 0,len = $("#bottom>div").length;i<len;i++){
+        $("#bottom>div").eq(i).hide();
+    }
+    if($defaultV == "false"){
+        $("#bottom>div").eq(1).show();
+    }else if($defaultV == "ok"){
+        $("#bottom>div").eq(0).show();
+    }
+    //console.log($("#selected").find("option:selected").text())
+});
+</script>
+
+<hr>
+<div id="odiv"><input id="radio" type="radio"></div>
+<script>
+//   var $odiv = $("#odiv");
+//   var $radio = $("#radio")
+//   $radio.on("click",function(){
+//        console.log($(this).find(":checked") == false)
+//    });
+////   console.log($("#radio")[0].checked == false)
+//   console.log($("#radio").attr("disabled") == "disabled")
+</script>
+<br>
+<div>ffff</div>
+<br>
+
+
+</body>
+</html>

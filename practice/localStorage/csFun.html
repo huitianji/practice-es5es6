@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://static.souyidai.com/wap/js/zepto.min.js"></script>
+    <style type="text/css">
+        body{
+            width:800px;
+            padding: 10px;
+            margin: 0px auto;
+            border:1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div id="mainbox">
+    <input name="name" type="text" value="q">
+    <br>
+    <input name="incomn" id="incomn" type="text" value="1">
+</div>
+<div>
+    <input type="button" id="btn" value="保存">
+</div>
+<script>
+    /**
+     *
+     */
+    function aFun () {
+
+        if (arguments.length != 3) {
+            console.log("false");
+            return;
+        }
+        console.log("ok")
+
+    }
+    //aFun()
+    var a = [2,5];
+    var b = [4,5];
+    var am = a.every(function (item) {
+        return item !=3;
+    });
+    var bm = b.every(function (item) {
+        return item !=4;
+    });
+    //console.log(!am,!bm)
+//    if (!bm && !am) {
+//        console.log("错误提示")
+//    }else {
+//       console.log("挣钱");
+//    }
+//    if (true && false) {
+//        console.log("---")
+//    } else {
+//        console.log("ok")
+//    }
+
+    var tel = '0551-5555555';
+    var r=/^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/;
+   // alert(r.test(tel));
+//    console.log(
+//    [].every(function (item) {
+//        return (r.test($(item).val()))
+//    })
+//    )
+//    if (typeof mp === "undefined") {
+//
+//        console.log("false")
+//    }
+//        console.log("ok")
+
+</script>
+<script>
+    var data = {};
+    var datalist = {};
+    $("#btn").on("click", function () {
+
+//        $("#incomn").val($("#incomn").val()*100);
+        $("#mainbox").find("input").each(function () {
+            data[$(this).attr("name")] = $(this).val();
+        });
+//        localStorage.setItem('test',JSON.stringify(data));
+//        datalist = JSON.parse(localStorage.getItem('test'));
+        console.log(data)
+    });
+    var storage = {};
+    var csjson = {
+        "name": "qff", "incomn": "1122"
+    };
+    $.ajax({
+        type: "get",
+        async: "true",
+        url: csjson,
+        data: {},
+        dataType: "json",
+        success: function(data){
+
+//            if(data instanceof Array){
+//                storage.push(JSON.stringify(data[i])); //storage是外部定义的数组 storage = []
+//            }
+            console.log(data)
+            for (key in data) {
+                storage[key] = data[key];
+            }
+            return storage;
+//            localStorage.setItem('test',JSON.stringify(m));
+//            newb = JSON.parse(localStorage.getItem('test'));
+//            getData();
+        },
+        error: function(){
+        }
+    });
+    console.log(storage);
+    function getData(){
+        window.localStorage.job = JSON.stringify(storage); //将storage转变为字符串存储
+        var job = JSON.parse(window.localStorage.job);
+//        for(var i = 0; i < job.length; i++){
+//            job[i] = JSON.parse(job[i]);
+//        }
+        //此时job中存储的就是对象数组了
+        console.log(job,"--");
+    }
+
+</script>
+
+
+</body>
+</html>
