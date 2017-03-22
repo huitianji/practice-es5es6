@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script language="javascript" src="../jquery1.10.2.min.js"></script>
+    <style type="text/css">
+        .verxon-circle{
+            width:54px; height: 54px;
+            position: absolute;
+            background-color: #0cc;
+            /*background-color: red;*/
+            border-radius: 50%;
+        }
+        .verxon-pie_left,.verxon-pie_right{
+            width: 54px; height: 54px;
+            position: absolute;
+            top: 0px; left: 0px;
+        }
+        .verxon-right,.verxon-left{
+            width: 54px;height: 54px;
+            position: absolute; top: 0px; left: 0px;
+            background-color: #e7e6e6;
+            border-radius: 50%;
+            transform:rote(30deg);
+        }
+        .verxon-pie_left,.verxon-left{
+            clip: rect(0px,27px,auto,0px);
+        }
+        .verxon-pie_right,.verxon-right{
+            clip:rect(0px,auto,auto,27px);
+        }
+        .verxon-mask{
+            position: absolute; top: 5px; left: 5px;
+            width: 44px; height: 44px;
+            background-color: #fff;
+            border-radius: 50%;
+            text-align: center; line-height:44px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="verxon-circle" data-type="verxon-circle">
+    <div class="verxon-pie_left"><div class="verxon-left"></div></div>
+    <div class="verxon-pie_right"><div class="verxon-right"></div></div>
+    <div class="verxon-mask"><span data-type="cerxon2-span">30</span>%</div>
+</div>
+<script>
+    $(function() {
+        $('.verxon-circle').each(function(index, el) {
+            var num = $(this).find('span').text() * 3.6;
+            if (num<=180) {
+                $(this).find('.verxon-right').css('transform', "rotate(" + num + "deg)");
+            } else {
+                $(this).find('.verxon-right').css('transform', "rotate(180deg)");
+                $(this).find('.verxon-left').css('transform', "rotate(" + (num - 180) + "deg)");
+            };
+        });
+        $("span[data-type='cerxon2-span']").each(function(i) {
+            var $value = $(this).html();
+
+            if ($value > 0 && $value <= 50) {
+                $(this).parents('div[data-type="verxon-circle"]').css("backgroundColor", "green");
+            } else if ($value > 50 && $value < 100) {
+                $(this).parents('div[data-type="verxon-circle"]').css("backgroundColor", "#ff510d");
+            } else if ($value == 100) {
+                $(this).parents('div[data-type="verxon-circle"]').css("backgroundColor", "#81c931");
+            }
+        });
+
+    });
+//$(".circle").find('.right').css('transform', "rotate(" + 30 + "deg)");
+  //  console.log($(".circle").find('.right').css('transform'));
+</script>
+</body>
+</html>
